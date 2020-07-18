@@ -48,14 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         //file setup
         File path = getFilesDir();
-        File file = new File(path, "testenment.txt");
-
-        try {
-             stream = new FileWriter(file);
-        } catch (IOException e) {
-            //e.printStackTrace();
-            debugText.setText(e.toString());
-        }
+        final File file = new File(path, "testenment.txt");
 
         try {
             reader = new FileReader(file);
@@ -69,7 +62,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //readText.setText("Write button"); //for debug
-
+                try {
+                    stream = new FileWriter(file);
+                } catch (IOException e) {
+                    //e.printStackTrace();
+                    debugText.setText(e.toString());
+                }
                 try {
                     stream.write(textIn.getText().toString());
                     stream.flush();
