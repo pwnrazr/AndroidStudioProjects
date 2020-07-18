@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Test</string>
+    <string name="debug_here">debug here</string>
+    <string name="write">Write</string>
+    <string name="read">Read</string>
+    <string name="readtext">readText</string>
+    <string name="file_read_output">File read output:</string>
+    <string name="pathtext">pathtext</string>
+    <string name="input">Input</string>
 </resources>
