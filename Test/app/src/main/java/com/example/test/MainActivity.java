@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
 
     Button writebtn;
     Button readbtn;
-    Button setbtn;
 
     FileWriter stream;
     FileReader reader;
@@ -35,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
 
         writebtn = (Button) findViewById(R.id.writebutton);
         readbtn = (Button) findViewById(R.id.readbutton);
-        setbtn = (Button) findViewById(R.id.setbutton);
 
         final EditText textIn = (EditText) findViewById(R.id.textinput);
         final TextView readText = (TextView) findViewById(R.id.readtext);
@@ -89,12 +87,6 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 readText.setText(new String(charRead));
-            }
-        });
-
-        setbtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                debugText.setText("that button does nothing");    //set
             }
         });
     }
