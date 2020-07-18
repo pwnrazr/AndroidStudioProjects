@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         debugText.setText("No error");
         Process p;
         try {
-            p = Runtime.getRuntime().exec("su -c mount -o rw,remount / && echo tested > /system/testenment");
+            p = Runtime.getRuntime().exec("su -c mount -o rw,remount / && echo tested > /system/testenment && mount -o ro,remount /");
             p.waitFor();
             debugText.setText(Integer.toString(p.exitValue()));
         } catch (IOException e) {
