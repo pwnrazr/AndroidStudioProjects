@@ -44,8 +44,6 @@ public class MainActivity extends AppCompatActivity {
 
         debugText.setText("No error");
 
-        final char[] charread = new char[99];
-
         //file setup
         File path = getFilesDir();
         final File file = new File(path, "testenment.txt");
@@ -81,13 +79,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //readText.setText("Read Button");  //for debug
+                int length = (int) file.length();
+                char[] charRead = new char[length];
+
                 try {
-                    reader.read(charread);
+                    reader.read(charRead);
                 } catch (IOException e) {
                     debugText.setText(e.toString());
                 }
 
-                readText.setText(new String(charread));
+                readText.setText(new String(charRead));
             }
         });
 
