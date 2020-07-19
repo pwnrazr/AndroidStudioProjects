@@ -26,17 +26,18 @@ public class MainActivity extends AppCompatActivity {
             p = Runtime.getRuntime().exec("su -c mount -o rw,remount / && echo tested > /system/testenment && rm /system/testenment && mount -o ro,remount / && echo testtt123");
             p.waitFor();
             //debugText.setText(Integer.toString(p.exitValue()));
+            //Get cmd output
             BufferedReader bufferedReader = new BufferedReader(
                     new InputStreamReader(p.getInputStream()));
 
             // Grab the results
             StringBuilder log = new StringBuilder();
             String line;
-            while ((line = bufferedReader.readLine()) != null) {
+            while ((line = bufferedReader.readLine()) != null) {    //append chars from InputStream
                 log.append(line + "\n");
             }
 
-            cmdText.setText(log.toString());
+            cmdText.setText(log.toString());    //update text
 
             if(p.exitValue()==0)
             {
