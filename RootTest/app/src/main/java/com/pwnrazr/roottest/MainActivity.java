@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
         Process p;
         try {
-            p = Runtime.getRuntime().exec("su -c mount -o rw,remount / && echo tested > /system/testenment && rm /system/testenment && mount -o ro,remount / && echo testtt123");
+            p = Runtime.getRuntime().exec("su -c mount -o rw,remount / && echo tested > /system/testenment && rm /system/testenment && mount -o ro,remount / && cat /proc/version");
             p.waitFor();
             //debugText.setText(Integer.toString(p.exitValue()));
             //Get cmd output
