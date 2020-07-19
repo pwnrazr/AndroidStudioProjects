@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Thermal Mitigation</string>
+    <string name="switchText">Skip Thermal Mitigation</string>
+</resources>
