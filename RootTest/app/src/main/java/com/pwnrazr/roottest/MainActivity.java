@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,13 +16,34 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView debugText = (TextView) findViewById(R.id.debugText);
+        TextView debugText = findViewById(R.id.debugText);
+        TextView cmdText = findViewById(R.id.cmdText);
+
         debugText.setText("No error");
+
         Process p;
         try {
-            p = Runtime.getRuntime().exec("su -c mount -o rw,remount / && echo tested > /system/testenment && mount -o ro,remount /");
+            p = Runtime.getRuntime().exec("su -c mount -o rw,remount / && echo tested > /system/testenment && rm /system/testenment && mount -o ro,remount / && echo testtt123");
             p.waitFor();
-            debugText.setText(Integer.toString(p.exitValue()));
+            //debugText.setText(Integer.toString(p.exitValue()));
+            BufferedReader bufferedReader = new BufferedReader(
+                    new InputStreamReader(p.getInputStream()));
+
+            // Grab the results
+            StringBuilder log = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                log.append(line + "\n");
+            }
+
+            cmdText.setText(log.toString());
+
+            if(p.exitValue()==0)
+            {
+                debugText.setText("Device is rooted!");
+            } else {
+                debugText.setText("Root was denied!");
+            }
         } catch (IOException e) {
             debugText.setText(e.getMessage());
         } catch (InterruptedException e ){
