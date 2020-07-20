@@ -19,6 +19,7 @@ import java.net.URL;
 public class MainActivity extends AppCompatActivity {
 
     String statusmsg = "";
+    String[] statusmsgSeparated;
     boolean updateReady = false;
 
     private class Background_get extends AsyncTask<String, Void, String> {
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("pwnrazr",Integer.toString(connection.getResponseCode()));
                 Log.i("pwnrazr",connection.getResponseMessage());
                 statusmsg = connection.getResponseMessage();
+                statusmsgSeparated = statusmsg.split(",");
                 updateReady = true;
 
                 BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -64,7 +66,8 @@ public class MainActivity extends AppCompatActivity {
             {
                 if(updateReady) {   //Only update when there's actually something to update
                     TextView debugText = findViewById(R.id.debugText);
-                    debugText.setText(statusmsg);
+                    //debugText.setText(statusmsg);
+                    debugText.setText(statusmsgSeparated[0] + "=test=" + statusmsgSeparated[1]);
                     updateReady = false;
                 }
 
