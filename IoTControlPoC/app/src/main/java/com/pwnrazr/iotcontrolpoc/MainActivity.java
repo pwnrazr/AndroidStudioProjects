@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,15 +17,21 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
+
+    String statusmsg = "";
+    boolean updateReady = false;
+
     private class Background_get extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
             try {
-                /*********************************************************/
-                /* Change the IP to the IP you set in the arduino sketch */
-                /*********************************************************/
                 URL url = new URL("http://192.168.1.179/?" + params[0]);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+                Log.i("pwnrazr",Integer.toString(connection.getResponseCode()));
+                Log.i("pwnrazr",connection.getResponseMessage());
+                statusmsg = connection.getResponseMessage();
+                updateReady = true;
 
                 BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 StringBuilder result = new StringBuilder();
@@ -35,12 +42,10 @@ public class MainActivity extends AppCompatActivity {
                 in.close();
                 connection.disconnect();
                 return result.toString();
-
             } catch (IOException e) {
-                //TextView debugText = findViewById(R.id.debugText);
-                Log.e("pwnrazr",e.getMessage());
-                //debugText.setText(e.toString());
+                Log.e("pwnrazr",e.toString());
             }
+
             return null;
         }
     }
@@ -52,11 +57,24 @@ public class MainActivity extends AppCompatActivity {
         Button testButton = findViewById(R.id.testButton);
         Button offButton = findViewById(R.id.offButton);
 
+        new CountDownTimer(100, 100)  //loop update
+        {
+            public void onTick(long l) {}
+            public void onFinish()
+            {
+                if(updateReady) {   //Only update when there's actually something to update
+                    TextView debugText = findViewById(R.id.debugText);
+                    debugText.setText(statusmsg);
+                    updateReady = false;
+                }
+
+                start();
+            }
+        }.start();
+
         testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView debugText = findViewById(R.id.debugText);
-                debugText.setText("button works");
                 new Background_get().execute("led1=1");
             }
         });
@@ -64,8 +82,6 @@ public class MainActivity extends AppCompatActivity {
         offButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView debugText = findViewById(R.id.debugText);
-                debugText.setText("off button works");
                 new Background_get().execute("led1=0");
             }
         });
