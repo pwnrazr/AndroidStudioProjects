@@ -8,7 +8,9 @@ import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -58,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button testButton = findViewById(R.id.testButton);
         Button offButton = findViewById(R.id.offButton);
+        final ToggleButton toggleButton = findViewById(R.id.toggleButton);
 
         new Background_get().execute("reqled");     //Request status of LED on app startup
 
@@ -70,6 +73,11 @@ public class MainActivity extends AppCompatActivity {
                     TextView debugText = findViewById(R.id.debugText);
                     //debugText.setText(statusmsg);
                     debugText.setText(statusmsgSeparated[0] + "=test=" + statusmsgSeparated[1]);
+                    if(statusmsgSeparated[1].equals("ON")){
+                        toggleButton.setChecked(true);
+                    } else {
+                        toggleButton.setChecked(false);
+                    }
                     updateReady = false;
                 }
 
@@ -88,6 +96,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 new Background_get().execute("led1=0");
+            }
+        });
+
+        toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    new Background_get().execute("led1=1");
+                } else {
+                    new Background_get().execute("led1=0");
+                }
             }
         });
     }
