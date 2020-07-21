@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 if(updateReady) {   //Only update when there's actually something to update
                     TextView debugText = findViewById(R.id.debugText);
                     //debugText.setText(statusmsg);
-                    debugText.setText(statusmsgSeparated[0] + "=test=" + statusmsgSeparated[1]);
+                    debugText.setText(String.format("%s=test=%s", statusmsgSeparated[0], statusmsgSeparated[1]));
                     if(statusmsgSeparated[1].equals("ON")){
                         toggleButton.setChecked(true);
                     } else {
