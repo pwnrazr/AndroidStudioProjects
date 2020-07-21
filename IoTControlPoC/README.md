@@ -6,5 +6,5 @@ References:
 - https://stackoverflow.com/questions/8278041/how-to-create-an-infinite-loop
 
 To Do: 
-- Get status of LED on app startup and set button/text as so
+- ~~Get status of LED on app startup and set button/text as so~~
 - 
