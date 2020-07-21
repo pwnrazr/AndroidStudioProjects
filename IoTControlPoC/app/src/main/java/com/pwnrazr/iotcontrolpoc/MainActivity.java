@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("pwnrazr",Integer.toString(connection.getResponseCode()));
                 Log.i("pwnrazr",connection.getResponseMessage());
                 statusmsg = connection.getResponseMessage();
-                statusmsgSeparated = statusmsg.split(",");
+                statusmsgSeparated = statusmsg.split(",");  //splits statusmsg with comma(,) as separator
                 updateReady = true;
 
                 BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         Button testButton = findViewById(R.id.testButton);
         Button offButton = findViewById(R.id.offButton);
 
-        new Background_get().execute("reqled");
+        new Background_get().execute("reqled");     //Request status of LED on app startup
 
         new CountDownTimer(100, 100)  //loop update
         {
