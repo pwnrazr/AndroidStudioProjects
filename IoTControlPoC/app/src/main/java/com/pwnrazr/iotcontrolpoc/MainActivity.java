@@ -59,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
         Button testButton = findViewById(R.id.testButton);
         Button offButton = findViewById(R.id.offButton);
 
+        new Background_get().execute("reqled");
+
         new CountDownTimer(100, 100)  //loop update
         {
             public void onTick(long l) {}
