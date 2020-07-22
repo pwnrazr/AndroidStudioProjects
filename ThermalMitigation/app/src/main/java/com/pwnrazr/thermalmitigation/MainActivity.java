@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final TextView debugText = findViewById(R.id.debugText);
         final TextView statusText = findViewById(R.id.statusText);
 
         Switch thermSwitch = findViewById(R.id.thermSwitch);
@@ -62,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b) {
-                    //debugText.setText("Enabled!");
                     root_cmd("su -c echo 1 > /sys/module/smb5_lib/parameters/skip_therm");
 
                     //verify that it is set
@@ -78,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                 } else {
-                    //debugText.setText("Disabled");
                     root_cmd("su -c echo 0 > /sys/module/smb5_lib/parameters/skip_therm");
 
                     //verify that it is set
