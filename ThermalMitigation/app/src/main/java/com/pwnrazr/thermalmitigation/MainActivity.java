@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
             // Get output from command
             String line;
             while ((line = bufferedReader.readLine()) != null) {    // Append chars from InputStream
-                log.append(line + "\n");
+                log.append(line).append("\n");
             }
         } catch (IOException | InterruptedException e) {
             Log.e("ThermMitigationApp",e.toString());
